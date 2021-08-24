@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
     UserAdapter userAdapter;//объявляем класс userAdapter, чтобы отобраожать информацию о пользователям на экране(в recyclerView)
     //    ArrayList<String> userList = new ArrayList<>();//создаём массив пользователей userList, в нём будем хранить имена пользователей
     ArrayList<User> userList = new ArrayList<>();//создаём массив пользователей userList, в нём будем хранить имена пользователей
+    private Button addUserBtn;
 
     @Override
     //Метод, который срабатывает при создании приложения(при запуске программы)
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
             user.setUserLastName("Фамилия " + i);
             userList.add(user);
         }
+        addUserBtn = findViewById(R.id.addUserBtn);
         recyclerView = findViewById(R.id.recyclerView);//находим recyclerView на активности, чтобы можно было далее с ним работать(находим его по идентификатору)
         //по такому же типу мы находим любые другие элементы, которые размещаем на активности: кнопки, контейнеры с текстом и т.д.
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));//для того, чтобы отображать информацию в recyclerView на экране, нам необходимо пользоваться LayoutManager. Для этого у recyclerView мы вызываем метод setLayoutManager. Мы выбрали именно LinearLayoutManager. Также указываем активность MainActivity.this
@@ -52,6 +55,14 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
         userAdapter = new UserAdapter(userList);//для того, чтобы потобржать информацию на экране, мы используем UserAdapter. UserAdapter передаёт recyclerView всю нужную информацию для отображения
         //в конструктор UserAdapter при создании объекта мы передаём userList(список пользователей)
         recyclerView.setAdapter(userAdapter);//вызываем метод setAdapter для того, чтобы установить Adapter для нашего recyclerView
+        //нажатие кнопки Начать заново,
+        addUserBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddUserActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //объект UserHolder отвечает за создание отдельного элемента списка
