@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,15 +23,22 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
     //RecyclerView это компонент для создания динамических списков в Android
     //добавить RecyclerView можно через File-->Project Structure и чтобы его найте надо в поиске вбить recyclerview маленькими буквами
     UserAdapter userAdapter;//объявляем класс userAdapter, чтобы отобраожать информацию о пользователям на экране(в recyclerView)
-    ArrayList<String> userList = new ArrayList<>();//создаём массив пользователей userList, в нём будем хранить имена пользователей
+    //    ArrayList<String> userList = new ArrayList<>();//создаём массив пользователей userList, в нём будем хранить имена пользователей
+    ArrayList<User> userList = new ArrayList<>();//создаём массив пользователей userList, в нём будем хранить имена пользователей
 
     @Override
     //Метод, который срабатывает при создании приложения(при запуске программы)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//Выполняем наследование и переопределяем метод суперкласса
         setContentView(R.layout.activity_main);//R означает Ресурс. Берём внешний вид приложения из activity_main.xml
-        for (int i = 0; i < 100; i++) {//запускаем цикл, который создаст нам 100 имён пользователей
+/*        for (int i = 0; i < 100; i++) {//запускаем цикл, который создаст нам 100 имён пользователей
             userList.add("Пользователь " + i);//создаём имена пользователей вида: Пользователь 1, Пользователь 2, Пользователь 3 ... и кладём эти имена в массив userList
+        }*/
+        for (int i = 0; i < 100; i++) {
+            User user = new User();
+            user.setUserName("Пользователь " + i);
+            user.setUserLastName("Фамилия " + i);
+            userList.add(user);
         }
         recyclerView = findViewById(R.id.recyclerView);//находим recyclerView на активности, чтобы можно было далее с ним работать(находим его по идентификатору)
         //по такому же типу мы находим любые другие элементы, которые размещаем на активности: кнопки, контейнеры с текстом и т.д.
@@ -47,26 +55,36 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
     }
 
     //объект UserHolder отвечает за создание отдельного элемента списка
-    private class UserHolder extends RecyclerView.ViewHolder {
+    private class UserHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView itemTextView;//создаём эту переменную, чтобы далее работать с элементом экрана itemTextView(TextView)
+        User user;
 
         //реализуем конструктор UserHolder
         public UserHolder(LayoutInflater inflater, ViewGroup viewGroup) {
             super(inflater.inflate(R.layout.single_item, viewGroup, false));//указываем какой именно макет надо раздувать(в данном случае single_item)
             //single_item мы разработали отдельно, создав его в res-->layout(добавили TextView(поля для вывода) и divider(горизонтальная линия))
             itemTextView = itemView.findViewById(R.id.itemTextView);//находим по идентификатору элемент itemTextView, куда будем писать текст
+            itemView.setOnClickListener(this);
         }
 
-        public void bind(String userName) {//метод, который устанавливает имя пользователя в элемент экрана itemTextView
+        public void bind(String userName, User user) {//метод, который устанавливает имя пользователя в элемент экрана itemTextView
+            this.user = user;
             itemTextView.setText(userName);//собственно, здесь мы и передаём имя пользователя
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
         }
     }
 
     //создаём объект UserAdapter
     private class UserAdapter extends RecyclerView.Adapter<UserHolder> {
-        ArrayList<String> users;//создаём массив users с именами пользователей в классе  UserAdapter
+        ArrayList<User> users;//создаём массив users с именами пользователей в классе  UserAdapter
 
-        public UserAdapter(ArrayList<String> users) {//конструктор UserAdapter принимает ArrayList<String>(список пользоватлелей)
+        public UserAdapter(ArrayList<User> users) {//конструктор UserAdapter принимает ArrayList<String>(список пользоватлелей)
             this.users = users;
         }
 
@@ -82,8 +100,9 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
         @Override
         //RecyclerView вызывает этот метод(onBindViewHolder) для связывания ViewHolder с данными. Метод извлекает соответствующие данные и использует их для заполнения макета держателя представления. Например, если RecyclerView отображается список имен, метод может найти соответствующее имя в списке и заполнить TextView виджет держателя представления.
         public void onBindViewHolder(UserHolder userHolder, int position) {
-            String user = users.get(position);//получает из списка пользователей пользователя по position 0,1,2,3 ..... Мы находим пользователя по этому индексу
-            userHolder.bind(user);//вызываем метод bind
+            User user = users.get(position);//получает из списка пользователей пользователя по position 0,1,2,3 ..... Мы находим пользователя по этому индексу
+            String userString = user.getUserName() + "\n" + user.getUserLastName();
+            userHolder.bind(userString, user);//вызываем метод bind
         }
 
         @Override
