@@ -7,5 +7,6 @@
     <string name="userLastNameTextView">Фамилия</string>
     <string name="phoneTextView">Номер телефона</string>
     <string name="addBtn">Добавить</string>
-    <string name="deleteBtn">Удалить</string>
+    <string name="deleteBtn">Удалить Пользователя</string>
+    <string name="editUserDataBtn">Редактировать Пользователя</string>
 </resources>

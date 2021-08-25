@@ -14,11 +14,13 @@
         android:text="@string/userNameTextView"
         android:textSize="18sp" />
 
+    <!--        android:text="@string/userNameTextView"-->
     <EditText
         android:id="@+id/userNameEditTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/userNameTextView"
         android:inputType="textPersonName"
         android:textSize="20sp" />
 
@@ -29,11 +31,13 @@
         android:text="@string/userLastNameTextView"
         android:textSize="18sp" />
 
+    <!--        android:text="@string/userLastNameTextView"-->
     <EditText
         android:id="@+id/userLastNameEditTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/userLastNameTextView"
         android:inputType="textPersonName"
         android:textSize="20sp" />
 
@@ -44,13 +48,18 @@
         android:text="@string/phoneTextView"
         android:textSize="18sp" />
 
-    <EditText
+    <!--        android:text="@string/phoneTextView"-->
+    <!--        android:mask="##########"-->
+    <!--    android:digits="12" можно вводить только цифры 1 и 2-->
+<!--    <EditText
         android:id="@+id/phoneEditTextPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:digits="12"
         android:ems="10"
+        android:hint="@string/phoneTextView"
         android:inputType="phone"
-        android:textSize="20sp" />
+        android:textSize="20sp" />-->
 
     <!--    EditText для ввода номера телефона по маске от ru.tinkoff.decoro:decoro:1.5.0-->
     <EditText

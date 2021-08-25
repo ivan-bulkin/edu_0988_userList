@@ -9,6 +9,9 @@ public class User implements Serializable {
     private String phone;
     private UUID uuid;//уникальный идентификатор, который завязан на времени, которое всегда идёт вперёд
 
+    public User(UUID uuid) {
+        this.uuid = uuid;
+    }
     public User() {//конструктор, который создаёт уникальный UUID, а уже потом мы добавляем остальные данные для пользователя
         this.uuid = UUID.randomUUID();
     }

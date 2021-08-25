@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
     UserAdapter userAdapter;//объявляем класс userAdapter, чтобы отобраожать информацию о пользователям на экране(в recyclerView)
     //    ArrayList<String> userList = new ArrayList<>();//создаём массив пользователей userList, в нём будем хранить имена пользователей
     ArrayList<User> userList = new ArrayList<>();//создаём массив пользователей userList, в нём будем хранить имена пользователей
-    private Button addUserBtn;
+    Button addUserBtn;
 
     @Override
     //Метод, который срабатывает при создании приложения(при запуске программы)
@@ -36,12 +36,14 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
 /*        for (int i = 0; i < 100; i++) {//запускаем цикл, который создаст нам 100 имён пользователей
             userList.add("Пользователь " + i);//создаём имена пользователей вида: Пользователь 1, Пользователь 2, Пользователь 3 ... и кладём эти имена в массив userList
         }*/
-        for (int i = 0; i < 100; i++) {
+/*        for (int i = 0; i < 100; i++) {
             User user = new User();
             user.setUserName("Пользователь " + i);
             user.setUserLastName("Фамилия " + i);
             userList.add(user);
-        }
+        }*/
+
+
         addUserBtn = findViewById(R.id.addUserBtn);
         recyclerView = findViewById(R.id.recyclerView);//находим recyclerView на активности, чтобы можно было далее с ним работать(находим его по идентификатору)
         //по такому же типу мы находим любые другие элементы, которые размещаем на активности: кнопки, контейнеры с текстом и т.д.
@@ -52,9 +54,7 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
         //Если сетка расположена вертикально, GridLayoutManager пытается сделать все элементы в каждой строке одинаковой ширины и высоты, но разные строки могут иметь разную высоту.
         //Если сетка расположена горизонтально, GridLayoutManager пытается сделать так, чтобы все элементы в каждом столбце имели одинаковую ширину и высоту, но разные столбцы могут иметь разную ширину.
         //StaggeredGridLayoutManager аналогичен GridLayoutManager, но не требует, чтобы элементы в строке имели одинаковую высоту (для вертикальных сеток) или элементы в одном столбце имели одинаковую ширину (для горизонтальных сеток). В результате элементы в строке или столбце могут смещаться друг относительно друга.
-        userAdapter = new UserAdapter(userList);//для того, чтобы потобржать информацию на экране, мы используем UserAdapter. UserAdapter передаёт recyclerView всю нужную информацию для отображения
         //в конструктор UserAdapter при создании объекта мы передаём userList(список пользователей)
-        recyclerView.setAdapter(userAdapter);//вызываем метод setAdapter для того, чтобы установить Adapter для нашего recyclerView
         //нажатие кнопки Начать заново,
         addUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +63,19 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerViewInit();
+    }
+
+    private void recyclerViewInit() {
+        Users users = new Users(MainActivity.this);
+        userList = users.getUserList();//получаем пользователей из класса Users
+        userAdapter = new UserAdapter(userList);//для того, чтобы потобржать информацию на экране, мы используем UserAdapter. UserAdapter передаёт recyclerView всю нужную информацию для отображения
+        recyclerView.setAdapter(userAdapter);//вызываем метод setAdapter для того, чтобы установить Adapter для нашего recyclerView
     }
 
     //объект UserHolder отвечает за создание отдельного элемента списка

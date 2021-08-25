@@ -12,7 +12,9 @@ public class UserInfoActivity extends AppCompatActivity {
     private TextView userNameTextView;
     private TextView phoneTextView;
     private User user;
-    Button deleteBtn;
+    private Button deleteBtn;
+    private Button editUserDataBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +27,27 @@ public class UserInfoActivity extends AppCompatActivity {
         userNameTextView.setText(user.getUserName() + "\n" + user.getUserLastName());
         phoneTextView.setText(user.getPhone());
         deleteBtn = findViewById(R.id.deleteBtn);
+        editUserDataBtn = findViewById(R.id.editUserDataBtn);
 
-        //нажатие кнопки Удалить
+        //нажатие кнопки Удалить Пользователя
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(UserInfoActivity.this, "Нажатие кнопки Удалить", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(UserInfoActivity.this, "Нажатие кнопки Удалить Пользователя", Toast.LENGTH_SHORT).show();
+//                User user = new User();это ни хрена тут не надо
+                user.getUuid();
+//                System.out.println(user.getUuid());
+                Users users = new Users(UserInfoActivity.this);
+                users.deleteUser(user.getUuid());//удаляем пользователя
+                onBackPressed();//нажатие кнопки назад
+            }
+        });
+
+        //нажатие кнопки Редактировать Пользователя
+        editUserDataBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(UserInfoActivity.this, "Нажатие кнопки Редактировать Пользователя", Toast.LENGTH_SHORT).show();
             }
         });
 
