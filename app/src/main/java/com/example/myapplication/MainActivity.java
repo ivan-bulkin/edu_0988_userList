@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
         //Если сетка расположена горизонтально, GridLayoutManager пытается сделать так, чтобы все элементы в каждом столбце имели одинаковую ширину и высоту, но разные столбцы могут иметь разную ширину.
         //StaggeredGridLayoutManager аналогичен GridLayoutManager, но не требует, чтобы элементы в строке имели одинаковую высоту (для вертикальных сеток) или элементы в одном столбце имели одинаковую ширину (для горизонтальных сеток). В результате элементы в строке или столбце могут смещаться друг относительно друга.
         //в конструктор UserAdapter при создании объекта мы передаём userList(список пользователей)
-        //нажатие кнопки Начать заново,
+        //нажатие кнопки Добавить Пользователя
         addUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
             itemTextView.setText(userName);//собственно, здесь мы и передаём имя пользователя
         }
 
-        @Override
+        @Override//клик по имени пользователя, открывает активность с данными пользователя
         public void onClick(View view) {
             Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
             intent.putExtra("user", user);

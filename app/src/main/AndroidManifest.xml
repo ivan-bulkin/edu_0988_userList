@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".UserEditActivity"
+            android:exported="true" />
+        <activity
             android:name=".AddUserActivity"
             android:exported="true" />
         <activity

@@ -21,9 +21,13 @@ public class Users {
         this.database = new UserBaseHelper(this.context).getWritableDatabase();//создали подключение к БД
     }
 
-    //метод редактирования пользователя
+    //метод редактирования пользователя. Сохраняем данные пользователя
     public void updateUser(User user) {
-
+        ContentValues values = getContentValues(user);
+//        System.out.println(user.getUserName() + " " + user.getUserLastName() + " " + user.getPhone() + " " + user.getUuid());
+//        int h = database.update(UserDbSchema.UserTable.NAME, values, UserDbSchema.Cols.UUID + "='" + user.getUuid() + "'", null);
+//        System.out.println("Найдено записей: " + h);
+        database.update(UserDbSchema.UserTable.NAME, values, UserDbSchema.Cols.UUID + "='" + user.getUuid() + "'", null);
     }
 
     //метод удаления пользователя

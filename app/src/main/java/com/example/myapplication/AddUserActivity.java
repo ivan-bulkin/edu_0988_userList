@@ -42,7 +42,7 @@ public class AddUserActivity extends AppCompatActivity {
 //        phoneEditTextPhone.addTextChangedListener(new TextWatcher() { int length_before = 0; @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { length_before = s.length(); } @Override public void onTextChanged(CharSequence s, int start, int before, int count) { } @Override public void afterTextChanged(Editable s) { if (length_before < s.length()) { if (s.length() == 3 || s.length() == 7) s.append("-"); if (s.length() > 3) { if (Character.isDigit(s.charAt(3))) s.insert(3, "-"); } if (s.length() > 7) { if (Character.isDigit(s.charAt(7))) s.insert(7, "-"); } } } });
 //        EditText inputField = (EditText) findViewById(R.id.phoneEditTextPhone); inputField.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 //        phoneEditTextPhone.addTextChangedListener(textWatcher); } TextWatcher textWatcher = new TextWatcher() { private boolean mFormatting; // this is a flag which prevents the stack overflow. private int mAfter; @Override public void onTextChanged(CharSequence s, int start, int before, int count) { // nothing to do here.. } //called before the text is changed... @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { //nothing to do here... mAfter = after; // flag to detect backspace.. } @Override public void afterTextChanged(Editable s) { // Make sure to ignore calls to afterTextChanged caused by the work done below if (!mFormatting) { mFormatting = true; // using US or RU formatting... if(mAfter!=0) // in case back space ain't clicked... { String num =s.toString(); String data = PhoneNumberUtils.formatNumber(num, "RU"); if(data!=null) { s.clear(); s.append(data); Log.i("Number", data);//8 (999) 123-45-67 or +7 999 123-45-67 } } mFormatting = false; } } };
-//после некоторого времени изысканий, как сделать маску ввода телефона для обычного EditText принял решение использовать всё-таки метод от ru.tinkoff.decoro
+//после некоторого времени изысканий(некоторые из изыскание можно увидеть выше), как сделать маску ввода телефона для обычного EditText принял решение использовать всё-таки метод от ru.tinkoff.decoro
 //есть аналогичный метод MaskedEditText от compile 'ru.egslava:MaskedEditText:1.0.5' https://github.com/egslava/edittext-mask, но у меня же уже есть ru.tinkoff.decoro
 
         //нажатие кнопки Добавить
@@ -50,7 +50,7 @@ public class AddUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                Toast.makeText(AddUserActivity.this, "Здесь скоро будет город-сад", Toast.LENGTH_SHORT).show();
-                //Нельзя создавать абсолютно пустых пользователей. Должно быть задано или имя или фамилия. Делаем проверку и, если нет ни имени, ни фамилии, дальще не идём
+                //Нельзя создавать абсолютно пустых пользователей. Должно быть задано или имя или фамилия. Делаем проверку и, если нет ни имени, ни фамилии, дальше не идём
                 //Также не дадим создать Пользователя, если в поле Имя и Фамилия навбивали только пробелы
                 if (userNameEditTextView.getText().toString().trim().equals("") && userLastNameEditTextView.getText().toString().trim().equals("")) {
                     Toast.makeText(AddUserActivity.this, "Заполните поле Имя или Фамилия", Toast.LENGTH_SHORT).show();
@@ -61,6 +61,7 @@ public class AddUserActivity extends AppCompatActivity {
                 user.setUserLastName(userLastNameEditTextView.getText().toString());
 //                user.setPhone(phoneEditTextPhone.getText().toString());
                 //используем тернарный оператор: если номер телефона всё-таки не введён, введено только "+7 (", то ничего в поле номера телефона не сохраняем
+                //замечание: номер телефона хранится в БД в виде +7 (999) 999-99-99, т.е. есть куча пробелов, скобок, тире и знак плюс. Я-бы всё-таки хранил в базе только цифры, что 100% ускорит поиск по поле номер телефона, но сейчас это не цель работы. Хотя, надо сделать всего-лишь два преобразования: когда сохраянем номер телефона надо удалить не нужные символы и когда показываем номер телефона надо добавить не нужные символы для красоты
                 user.setPhone(phoneEditTextPhoneMask.getText().toString().equals("+7 (") ? "" : phoneEditTextPhoneMask.getText().toString());
 //                System.out.println(phoneEditTextPhoneMask.getText().toString());
                 Users users = new Users(AddUserActivity.this);

@@ -1,12 +1,14 @@
 <resources>
     <string name="app_name">Телефонная книга на RecyclerView</string>
-    <string name="addUserBtn">Добавить пользователя</string>
     <string name="app_name_add_user">Добавить пользователя</string>
     <string name="app_name_user_info">Информация о пользователе</string>
+    <string name="app_name_user_edit">Редактировать данные</string>
+    <string name="addUserBtn">Добавить пользователя</string>
     <string name="userNameTextView">Имя</string>
     <string name="userLastNameTextView">Фамилия</string>
     <string name="phoneTextView">Номер телефона</string>
     <string name="addBtn">Добавить</string>
     <string name="deleteBtn">Удалить Пользователя</string>
     <string name="editUserDataBtn">Редактировать Пользователя</string>
+    <string name="saveBtn">Сохранить</string>
 </resources>
