@@ -69,7 +69,6 @@ public class UserEditActivity extends AppCompatActivity {
 
     @Override//переопределим событие нажатие кнопки назад для активности UserEditActivity Редактирование данных пользователя
     public void onBackPressed() {
-//        System.out.println("UserEditActivity onBackPressed");
         Intent intent = new Intent(UserEditActivity.this, MainActivity.class);//вернёмся сразу в главную активность и все данные о пользователях будут обновлены
         startActivity(intent);
     }

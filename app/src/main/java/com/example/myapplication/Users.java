@@ -33,7 +33,6 @@ public class Users {
     //метод удаления пользователя
     public void deleteUser(UUID uuid) {
         database.delete(UserDbSchema.UserTable.NAME, UserDbSchema.Cols.UUID + "='" + uuid + "'", null);
-//        System.out.println(uuid);
     }
 
     //метод добавления мользователя в базу данных
@@ -69,12 +68,6 @@ public class Users {
         } finally {
             cursorWrapper.close();
         }
-/*        for (int i = 0; i < 100; i++) {
-            User user = new User();
-            user.setUserName("Пользователь " + i);
-            user.setUserLastName("Фамилия " + i);
-            userList.add(user);
-        }*/
         return this.userList;
     }
 }

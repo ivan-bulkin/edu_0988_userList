@@ -49,7 +49,6 @@ public class AddUserActivity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(AddUserActivity.this, "Здесь скоро будет город-сад", Toast.LENGTH_SHORT).show();
                 //Нельзя создавать абсолютно пустых пользователей. Должно быть задано или имя или фамилия. Делаем проверку и, если нет ни имени, ни фамилии, дальше не идём
                 //Также не дадим создать Пользователя, если в поле Имя и Фамилия навбивали только пробелы
                 if (userNameEditTextView.getText().toString().trim().equals("") && userLastNameEditTextView.getText().toString().trim().equals("")) {
@@ -59,11 +58,9 @@ public class AddUserActivity extends AppCompatActivity {
                 User user = new User();
                 user.setUserName(userNameEditTextView.getText().toString());
                 user.setUserLastName(userLastNameEditTextView.getText().toString());
-//                user.setPhone(phoneEditTextPhone.getText().toString());
                 //используем тернарный оператор: если номер телефона всё-таки не введён, введено только "+7 (", то ничего в поле номера телефона не сохраняем
                 //замечание: номер телефона хранится в БД в виде +7 (999) 999-99-99, т.е. есть куча пробелов, скобок, тире и знак плюс. Я-бы всё-таки хранил в базе только цифры, что 100% ускорит поиск по поле номер телефона, но сейчас это не цель работы. Хотя, надо сделать всего-лишь два преобразования: когда сохраянем номер телефона надо удалить не нужные символы и когда показываем номер телефона надо добавить не нужные символы для красоты
                 user.setPhone(phoneEditTextPhoneMask.getText().toString().equals("+7 (") ? "" : phoneEditTextPhoneMask.getText().toString());
-//                System.out.println(phoneEditTextPhoneMask.getText().toString());
                 Users users = new Users(AddUserActivity.this);
                 users.addUser(user);
                 onBackPressed();//нажатие кнопки назад

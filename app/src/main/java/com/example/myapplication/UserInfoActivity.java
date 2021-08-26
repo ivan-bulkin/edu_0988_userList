@@ -15,12 +15,9 @@ public class UserInfoActivity extends AppCompatActivity {
     private User user;
     private Button deleteBtn;
     private Button editUserDataBtn;
-//        private Users users;
-//    private Users users = new Users(UserInfoActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        System.out.println("onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
         setTitle(getResources().getText(R.string.app_name_user_info));//задаём заголовок окна
@@ -36,10 +33,7 @@ public class UserInfoActivity extends AppCompatActivity {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(UserInfoActivity.this, "Нажатие кнопки Удалить Пользователя", Toast.LENGTH_SHORT).show();
-//                User user = new User();это ни хрена тут не надо
                 user.getUuid();
-//                System.out.println(user.getUuid());
                 Users users = new Users(UserInfoActivity.this);
                 users.deleteUser(user.getUuid());//удаляем пользователя
                 onBackPressed();//нажатие кнопки назад
@@ -50,7 +44,6 @@ public class UserInfoActivity extends AppCompatActivity {
         editUserDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(UserInfoActivity.this, "Нажатие кнопки Редактировать Пользователя", Toast.LENGTH_SHORT).show();
                 //создаём и открываем активность редактирования данных пользователя
                 Intent intent = new Intent(UserInfoActivity.this, UserEditActivity.class);
                 intent.putExtra("user", user);
@@ -59,16 +52,5 @@ public class UserInfoActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    @Override
-    public void onResume() {
-        System.out.println("onResume");
-        super.onResume();
-        System.out.println("UserInfoActivity onResume Пользователь " + user.getUserName() + " " + user.getUserLastName() + " " + user.getPhone());
-//        Users users = new Users(UserInfoActivity.this);
-//        users.getUserList();
-        System.out.println("UserInfoActivity onResume 2 Пользователь " + user.getUserName() + " " + user.getUserLastName() + " " + user.getPhone());
-//        phoneTextView.setText(user.getPhone());
     }
 }
