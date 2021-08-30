@@ -55,7 +55,7 @@ public class UserAddFragment extends Fragment {
                 user.setPhone(phoneEditTextPhoneMask.getText().toString().equals("+7 (") ? "" : phoneEditTextPhoneMask.getText().toString());
                 Users users = new Users(getActivity());
                 users.addUser(user);
-//                onBackPressed();//нажатие кнопки назад
+                getActivity().onBackPressed();//возвращаемся на предыдущий фрагмент
             }
         });
         return view;

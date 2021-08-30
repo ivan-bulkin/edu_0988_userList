@@ -46,7 +46,7 @@ public class UserInfoFragment extends Fragment {
             public void onClick(View view) {
                 Users users = new Users(getActivity());
                 users.deleteUser(user.getUuid());//удаляем пользователя
-//                onBackPressed();//нажатие кнопки назад
+                getActivity().onBackPressed();//возвращаемся на предыдущий фрагмент
             }
         });
 
