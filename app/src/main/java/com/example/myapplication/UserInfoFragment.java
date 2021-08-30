@@ -54,11 +54,7 @@ public class UserInfoFragment extends Fragment {
         editUserDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //создаём и открываем активность редактирования данных пользователя
-                Intent intent = new Intent(getContext(), UserEditActivity.class);
-                intent.putExtra("user", user);
-                startActivity(intent);
-//                System.out.println("UserInfoActivity Пользователь " + user.getUserName() + " " + user.getUserLastName() + " " + user.getPhone());
+                MainActivity.editFragment(view, user);//открываем фрагмент редактирования данных пользователя
             }
         });
         return view;

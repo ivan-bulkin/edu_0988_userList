@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {//это наш класс MainActivity, в коротом лежит весь код программы(приложения)
     FragmentManager fragmentManager = getSupportFragmentManager();
 
-    @Override
+    @Override//переопределяем метод onCreate
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
         fragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment, "main_fragment").commit();
     }
 
-    @Override
+    @Override//переопределяем метод нажатия кнопки Назад onBackPressed
     public void onBackPressed() {
         Fragment currentFragment = fragmentManager.findFragmentByTag("main_fragment");
         if (currentFragment != null && currentFragment.isVisible()) {
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
         fragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
     }
 
+    //метод, который вызывает фрагмент с добавлением пользователя
     public static void addFragment(View view) {
         //Получаем хостинговую активность
         FragmentActivity activity = (FragmentActivity) view.getContext();
@@ -70,6 +71,24 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
         //Создаём сам фрагмент
         Fragment fragment = new UserAddFragment();
         //Показываем сам фрагмент
+        fragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
+    }
+
+    //метод, который вызывает фрагмент с редактированием данных пользователя
+    public static void editFragment(View view, User user) {
+        //Получаем хостинговую активность
+        FragmentActivity activity = (FragmentActivity) view.getContext();
+        //Создаём  фрагмент менеджер
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        //Создаём сам фрагмент
+        Fragment fragment = new UserEditFragment();
+        //надо положить пользователя, которого собираемся отобразить
+        //создаём Bundle (это как коллекция)
+        Bundle bundle = new Bundle();
+        //Записываем пользователя в bundle
+        bundle.putSerializable("user", user);
+        //Добавляем bundle к фрагменту
+        fragment.setArguments(bundle);
         fragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit();
     }
 }
