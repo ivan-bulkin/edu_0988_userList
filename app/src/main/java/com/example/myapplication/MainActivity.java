@@ -28,9 +28,12 @@ public class MainActivity extends AppCompatActivity {//это наш класс 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Fragment fragment = new UserListFragment();
-//        fragmentManager.beginTransaction().add(R.id.fragmentContainer, new UserListFragment());
-        fragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment, "main_fragment").commit();
+        Fragment currentFragment = fragmentManager.findFragmentByTag("main_fragment");//при повороте экрана каждый раз создавался новый фрагмент со списком пользователей. Теперь это не делается
+        if (currentFragment == null) {
+            System.out.println("onCreate");
+            Fragment fragment = new UserListFragment();
+            fragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment, "main_fragment").commit();
+        }
     }
 
     @Override//переопределяем метод нажатия кнопки Назад onBackPressed
