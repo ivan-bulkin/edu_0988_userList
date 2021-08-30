@@ -59,9 +59,9 @@ public class UserEditActivity extends AppCompatActivity {
                 user.setPhone(phoneEditTextPhoneMask.getText().toString().equals("+7 (") ? "" : phoneEditTextPhoneMask.getText().toString());
                 Users users = new Users(UserEditActivity.this);
                 users.updateUser(user);//сохраняем данные пользователя
-                System.out.println("UserEditActivity Пользователь " + user.getUserName() + " " + user.getUserLastName() + " " + user.getPhone());
-                users.getUserList();
-                System.out.println("UserEditActivity 2 Пользователь " + user.getUserName() + " " + user.getUserLastName() + " " + user.getPhone());
+//                System.out.println("UserEditActivity Пользователь " + user.getUserName() + " " + user.getUserLastName() + " " + user.getPhone());
+//                users.getUserList();
+//                System.out.println("UserEditActivity 2 Пользователь " + user.getUserName() + " " + user.getUserLastName() + " " + user.getPhone());
 //                onBackPressed();//нажатие кнопки назад. Здесь не делаем, пусть пользователь сам примет решение о необходимости выхода из активности Редактирования данных
             }
         });

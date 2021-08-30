@@ -23,11 +23,14 @@ public class AddUserActivity extends AppCompatActivity {
     //    EditText phoneEditTextPhone;//поле ввода номера телефона Пользователя
     EditText phoneEditTextPhoneMask;//поле ввода номера телефона Пользователя по маске ввода от ru.tinkoff.decoro
     Button addBtn;
+//    User user;
+//    boolean addUser = true;//переменная, которая нам даст понять открываем мы форму для редактирования пользователя или для создания нового пользователя
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_user);
+//        user = (User) getIntent().getSerializableExtra("user");
         setTitle(getResources().getText(R.string.app_name_add_user));//задаём заголовок окна
         userNameEditTextView = findViewById(R.id.userNameEditTextView);
         userLastNameEditTextView = findViewById(R.id.userLastNameEditTextView);
@@ -44,6 +47,9 @@ public class AddUserActivity extends AppCompatActivity {
 //        phoneEditTextPhone.addTextChangedListener(textWatcher); } TextWatcher textWatcher = new TextWatcher() { private boolean mFormatting; // this is a flag which prevents the stack overflow. private int mAfter; @Override public void onTextChanged(CharSequence s, int start, int before, int count) { // nothing to do here.. } //called before the text is changed... @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { //nothing to do here... mAfter = after; // flag to detect backspace.. } @Override public void afterTextChanged(Editable s) { // Make sure to ignore calls to afterTextChanged caused by the work done below if (!mFormatting) { mFormatting = true; // using US or RU formatting... if(mAfter!=0) // in case back space ain't clicked... { String num =s.toString(); String data = PhoneNumberUtils.formatNumber(num, "RU"); if(data!=null) { s.clear(); s.append(data); Log.i("Number", data);//8 (999) 123-45-67 or +7 999 123-45-67 } } mFormatting = false; } } };
 //после некоторого времени изысканий(некоторые из изыскание можно увидеть выше), как сделать маску ввода телефона для обычного EditText принял решение использовать всё-таки метод от ru.tinkoff.decoro
 //есть аналогичный метод MaskedEditText от compile 'ru.egslava:MaskedEditText:1.0.5' https://github.com/egslava/edittext-mask, но у меня же уже есть ru.tinkoff.decoro
+//        if (user != null) {
+//            //тут пишем код, если мы передаём данные пользователя и если используем эту активность не для создания нового пользователя, а для редактирования пользователя
+//        }
 
         //нажатие кнопки Добавить
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +68,7 @@ public class AddUserActivity extends AppCompatActivity {
                 //замечание: номер телефона хранится в БД в виде +7 (999) 999-99-99, т.е. есть куча пробелов, скобок, тире и знак плюс. Я-бы всё-таки хранил в базе только цифры, что 100% ускорит поиск по поле номер телефона, но сейчас это не цель работы. Хотя, надо сделать всего-лишь два преобразования: когда сохраянем номер телефона надо удалить не нужные символы и когда показываем номер телефона надо добавить не нужные символы для красоты
                 user.setPhone(phoneEditTextPhoneMask.getText().toString().equals("+7 (") ? "" : phoneEditTextPhoneMask.getText().toString());
                 Users users = new Users(AddUserActivity.this);
+//        if (addUser) {//здесь пишем условия для редактирования или создания пользователя
                 users.addUser(user);
                 onBackPressed();//нажатие кнопки назад
             }
